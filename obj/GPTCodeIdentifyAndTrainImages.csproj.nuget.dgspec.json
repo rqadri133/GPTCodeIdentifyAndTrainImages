@@ -1,0 +1,93 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/GPTCodeIdentifyAndTrainImages.csproj": {}
+  },
+  "projects": {
+    "/Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/GPTCodeIdentifyAndTrainImages.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/GPTCodeIdentifyAndTrainImages.csproj",
+        "projectName": "GPTCodeIdentifyAndTrainImages",
+        "projectPath": "/Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/GPTCodeIdentifyAndTrainImages.csproj",
+        "packagesPath": "/Users/syedqadri/.nuget/packages/",
+        "outputPath": "/Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/syedqadri/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.ML": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
+            "Microsoft.ML.ImageAnalytics": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
+            "Microsoft.ML.Vision": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
+            "SkiaSharp": {
+              "target": "Package",
+              "version": "[3.116.1, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
