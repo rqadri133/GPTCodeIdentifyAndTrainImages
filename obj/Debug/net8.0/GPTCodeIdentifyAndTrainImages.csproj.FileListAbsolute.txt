@@ -59,3 +59,4 @@
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.pdb
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.genruntimeconfig.cache
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/ref/GPTCodeIdentifyAndTrainImages.dll
+/Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.sourcelink.json

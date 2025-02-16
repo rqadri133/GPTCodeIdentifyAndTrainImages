@@ -50,7 +50,7 @@ Console.WriteLine("Cutting and Drafting Images trian them ");
         var data = mlContext.Data.LoadFromEnumerable(imageData);
 
         var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
-            .Append(mlContext.Transforms.LoadImages("Image", null, nameof(ImageData.ImagePath)))
+            .Append(mlContext.Transforms.LoadImages(outputFolderPath, null, nameof(ImageData.ImagePath)))
             .Append(mlContext.Transforms.ResizeImages("Image", 64, 64))
             .Append(mlContext.Transforms.ExtractPixels("Image"))
             .Append(mlContext.MulticlassClassification.Trainers.ImageClassification())
