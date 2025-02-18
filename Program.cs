@@ -28,7 +28,7 @@ Console.WriteLine("Cutting and Drafting Images trian them ");
 
         foreach (var path in croppedImagePaths)
         {
-            imageData.Add(new ImageData { ImagePath = path, Label = "Unknown" });
+            imageData.Add(new ImageData { Image = path, Label = "Unknown" });
         }
 
         var dataView = mlContext.Data.LoadFromEnumerable(imageData);
@@ -43,18 +43,22 @@ Console.WriteLine("Cutting and Drafting Images trian them ");
 
         foreach (var box in matrix.Boxes)
         {
-            imageData.Add(new ImageData { ImagePath = box.ImagePath, Label = $"{box.Row}_{box.Col}" });
+            imageData.Add(new ImageData { Image = box.ImagePath, Label = $"{box.Row}_{box.Col}" });
         }
 
 
         var data = mlContext.Data.LoadFromEnumerable(imageData);
-
-        var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
-            .Append(mlContext.Transforms.LoadImages(outputFolderPath, null, nameof(ImageData.ImagePath)))
-            .Append(mlContext.Transforms.ResizeImages("Image", 64, 64))
-            .Append(mlContext.Transforms.ExtractPixels("Image"))
-            .Append(mlContext.MulticlassClassification.Trainers.ImageClassification())
-            .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
+var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
+    .Append(mlContext.Transforms.LoadImages(
+        outputColumnName: "Image",
+        imageFolder: "",
+        inputColumnName: "Image"))
+    .Append(mlContext.Transforms.ResizeImages(
+        outputColumnName: "Image", imageWidth: 224, imageHeight: 224))
+    .Append(mlContext.Transforms.ExtractPixels(outputColumnName: "Image"))
+    // Custom model loading here (optional)
+    //.Append(mlContext.Model.LoadTensorFlowModel("model.pb").AddInput("input", "Image").AddOutput("output"))
+    .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel", "Label"));
 
         var model = pipeline.Fit(data);
 

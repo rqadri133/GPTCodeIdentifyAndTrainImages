@@ -53,10 +53,10 @@
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.AssemblyInfoInputs.cache
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.AssemblyInfo.cs
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.csproj.CoreCompileInputs.cache
+/Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.sourcelink.json
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeI.641BAD9D.Up2Date
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.dll
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/refint/GPTCodeIdentifyAndTrainImages.dll
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.pdb
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.genruntimeconfig.cache
 /Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/ref/GPTCodeIdentifyAndTrainImages.dll
-/Users/syedqadri/Documents/dev/GPTCodeIdentifyAndTrainImages/obj/Debug/net8.0/GPTCodeIdentifyAndTrainImages.sourcelink.json

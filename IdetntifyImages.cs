@@ -12,6 +12,7 @@ public class Box
     public int Row { get; set; }
     public string ImagePath { get; set; }
     public bool IsMatchImage { get; set; }
+    public string LanguageToken { get; set; }
 }
 
 public class Matrix
@@ -20,17 +21,18 @@ public class Matrix
 
     public void AddBox(int col, int row, string imagePath, bool isMatchImage = false)
     {
-        Boxes.Add(new Box { Col = col, Row = row, ImagePath = imagePath, IsMatchImage = isMatchImage });
+        Boxes.Add(new Box { Col = col, Row = row, ImagePath = imagePath, IsMatchImage = isMatchImage , LanguageToken ="ReplaceASLEnglishSymbol" });
     }
 }
 
 public class ImageData
 {
     [LoadColumn(0)]
-    public string ImagePath { get; set; }
+    public string Image { get; set; }
 
     [LoadColumn(1)]
     public string Label { get; set; }
+    
 
 }
 
