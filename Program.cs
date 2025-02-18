@@ -62,7 +62,7 @@ var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
 
         var model = pipeline.Fit(data);
 
-        mlContext.Model.Save(model, data.Schema, "image_box_model.zip");
+        mlContext.Model.Save(model, data.Schema, "image_box_model.tar");
 
         Console.WriteLine("Model trained and saved.");
 
