@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 Console.WriteLine("Cutting and Drafting Images trian them ");
 
 
-         string inputImagePath = "//Users//syedqadri//Documents//Dev//GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/aslsample.png";
+         string inputImagePath = "//Users//syedqadri//Documents//Dev//GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/alphabets.png";
         string outputFolderPath = "//Users/syedqadri/Documents/Dev/GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/";
         // assuming cols or counted from image but this also needs to be caluclated by logic
         int rows = 5;
@@ -62,7 +62,7 @@ var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
 
         var model = pipeline.Fit(data);
 
-        mlContext.Model.Save(model, data.Schema, "image_box_model.tar");
+        mlContext.Model.Save(model, data.Schema, "image_box_model.tar.zip");
 
         Console.WriteLine("Model trained and saved.");
 

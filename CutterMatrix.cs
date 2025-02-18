@@ -20,8 +20,8 @@ public class Cutter
 
         using (var image = Image.Load<Rgba32>(inputImagePath))
         {
-            int cellWidth = image.Width / cols;
-            int cellHeight = image.Height / rows;
+            int cellWidth = (image.Width / cols  ) ;
+            int cellHeight = (image.Height / rows) ;
 
             Directory.CreateDirectory(outputFolderPath);
 
@@ -51,7 +51,7 @@ public class Cutter
             int cellWidth = image.Width / cols;
             int cellHeight = image.Height / rows;
 
-            Directory.CreateDirectory(outputFolderPath);
+            Directory.CreateDirectory(outputFolderPath);    
 
             for (int row = 0; row < rows; row++)
             {
