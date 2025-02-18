@@ -123,4 +123,25 @@ using (var image = Image.Load("image.png"))
     image.Save("resized_image.png");
 }
 
+
+Notes for Tensor Flow 
+1. Download the Precompiled TensorFlow C Library:
+Go to: TensorFlow C Library Releases
+Find the latest release (e.g., libtensorflow-macos-x86_64.tar.gz or libtensorflow-macos-arm64.tar.gz depending on your chip: Intel or Apple Silicon).
+Download the appropriate version based on your architecture:
+Apple Silicon (M1, M2) → macos-arm64
+Intel Mac → macos-x86_64
+2. Extract and Install:
+sudo mkdir -p /usr/local/lib
+sudo mkdir -p /usr/local/include/tensorflow
+Extract the downloaded .tar.gz file:
+
+tar -xvzf libtensorflow-macos-<arch>.tar.gz
+// check your installations
+ls -l /usr/local/lib | grep libtensorflow
+
+
+sudo codesign --force --deep --sign - /usr/local/lib/libtensorflow.2.18.0.dylib
+sudo codesign --force --deep --sign - /usr/local/lib/libtensorflow_framework.2.18.0.dylib
+
         */
