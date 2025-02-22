@@ -15,11 +15,11 @@ using System.Runtime.InteropServices;
 Console.WriteLine("Cutting and Drafting Images trian them ");
 
 
-         string inputImagePath = "//Users//syedqadri//Documents//Dev//GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/alphabets.png";
+         string inputImagePath = "//Users//syedqadri//Documents//Dev//GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/engasl.png";
         string outputFolderPath = "//Users/syedqadri/Documents/Dev/GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/";
         // assuming cols or counted from image but this also needs to be caluclated by logic
-        int rows = 5;
-        int cols = 5;
+        int rows = 4;
+        int cols = 7;
 
         var croppedImagePaths = Cutter.SplitImage(inputImagePath, outputFolderPath, rows, cols);
 
@@ -43,7 +43,8 @@ Console.WriteLine("Cutting and Drafting Images trian them ");
 
         foreach (var box in matrix.Boxes)
         {
-            imageData.Add(new ImageData { Image = box.ImagePath, Label = $"{box.Row}_{box.Col}" });
+           var lbl = Cutter.GetTextFromImageIron(box.ImagePath);
+            imageData.Add(new ImageData { Image = box.ImagePath, Label = lbl });
         }
 
 

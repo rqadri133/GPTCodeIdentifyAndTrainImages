@@ -44,6 +44,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "IronOcr": {
+              "target": "Package",
+              "version": "[2025.2.3, )"
+            },
             "Microsoft.ML": {
               "target": "Package",
               "version": "[4.0.1, )"
@@ -67,6 +71,10 @@
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[9.0.2, )"
+            },
+            "Tesseract": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             }
           },
           "imports": [

@@ -6,7 +6,9 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Formats.Png;
-
+using Tesseract;
+using System.Collections.Generic;
+using IronOcr;
 
 
 
@@ -14,6 +16,50 @@ using SixLabors.ImageSharp.Formats.Png;
 public class Cutter 
 {
 
+
+
+
+  
+ public static string GetTextFromImageIron(string currentImage)
+ {
+        using (var image = Image.Load(currentImage))
+        {
+            var ocrProcessor = new OCRProcessor<Image>();
+            string letter = ocrProcessor.ExtractLetterM2(image,currentImage);
+
+             return letter;
+         }
+      return "";
+
+ }
+ 
+  public static string GetTextFromImage(string imagePath) 
+  {
+       string firstcut = String.Empty;
+      string tessdataPath = "/opt/homebrew/share/tessdata";
+        try
+        {
+            using (var engine = new TesseractEngine(tessdataPath, "eng", EngineMode.Default))
+            {
+                using (var image = Pix.LoadFromFile(imagePath))
+                {
+                    using (var page = engine.Process(image))
+                    {
+                        string extractedText = page.GetText();
+                        Console.WriteLine("Extracted Text:");
+                         return extractedText  ;                  
+
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+        return firstcut;
+
+  }
     public static List<string> SplitImage(string inputImagePath, string outputFolderPath, int rows, int cols)
     {
         var outputPaths = new List<string>();
