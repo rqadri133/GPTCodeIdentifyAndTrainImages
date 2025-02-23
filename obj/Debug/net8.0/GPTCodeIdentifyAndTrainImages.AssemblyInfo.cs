@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GPTCodeIdentifyAndTrainImages")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04c488d98f99f7e33fa730e0fd5c7bb9983c1aee")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0e57395f0765762bcd0921881b4c85e3e9ff602")]
 [assembly: System.Reflection.AssemblyProductAttribute("GPTCodeIdentifyAndTrainImages")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GPTCodeIdentifyAndTrainImages")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

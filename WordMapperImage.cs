@@ -1,5 +1,9 @@
 using Microsoft.ML.Data;
-
+/// <summary>
+/// Convert all bytes images and Create a dictionary of millions feed dictionary
+/// </summary> <summary>
+/// 
+/// </summary>
 public class WordMapperImage 
 {
  

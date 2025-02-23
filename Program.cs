@@ -26,9 +26,9 @@ Console.WriteLine("Cutting and Drafting Images trian them ");
       var mlContext = new MLContext();
         var imageData = new List<ImageData>();
 
-        foreach (var path in croppedImagePaths)
+        foreach (var dictval in croppedImagePaths)
         {
-            imageData.Add(new ImageData { Image = path, Label = "Unknown" });
+            imageData.Add(new ImageData { Image = dictval.Value.imagePath, Label = dictval.Value.Alphabet.ToString() });
         }
 
         var dataView = mlContext.Data.LoadFromEnumerable(imageData);
@@ -36,32 +36,22 @@ Console.WriteLine("Cutting and Drafting Images trian them ");
         Console.WriteLine("Data loaded into IDataView successfully.");
 
        
-
-        var matrix = Cutter.LoadMatrixFromFolder(outputFolderPath, rows, cols);
-
-
-
-        foreach (var box in matrix.Boxes)
-        {
-           var lbl = Cutter.GetTextFromImageIron(box.ImagePath);
-            imageData.Add(new ImageData { Image = box.ImagePath, Label = lbl });
-        }
-
-
+     
+     
         var data = mlContext.Data.LoadFromEnumerable(imageData);
-var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
-    .Append(mlContext.Transforms.LoadImages(
-        outputColumnName: "Image",
-        imageFolder: "",
-        inputColumnName: "Image"))
-    .Append(mlContext.Transforms.ResizeImages(
-        outputColumnName: "Image", imageWidth: 224, imageHeight: 224))
-    .Append(mlContext.Transforms.ExtractPixels(outputColumnName: "Image"))
-    // Custom model loading here (optional)
-    //.Append(mlContext.Model.LoadTensorFlowModel("model.pb").AddInput("input", "Image").AddOutput("output"))
-    .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel", "Label"));
+        var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
+        .Append(mlContext.Transforms.LoadImages(
+            outputColumnName: "Image",
+            imageFolder: "",
+            inputColumnName: "Image"))
+        .Append(mlContext.Transforms.ResizeImages(
+            outputColumnName: "Image", imageWidth: 224, imageHeight: 224))
+        .Append(mlContext.Transforms.ExtractPixels(outputColumnName: "Image"))
+        // Custom model loading here (optional)
+        //.Append(mlContext.Model.LoadTensorFlowModel("model.pb").AddInput("input", "Image").AddOutput("output"))
+        .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel", "Label"));
 
-        var model = pipeline.Fit(data);
+            var model = pipeline.Fit(data);
 
         mlContext.Model.Save(model, data.Schema, "image_box_model.tar.zip");
 

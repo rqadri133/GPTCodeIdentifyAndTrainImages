@@ -11,7 +11,13 @@ using System.Collections.Generic;
 using IronOcr;
 
 
+public class ImageMapper 
+{
+    public string imagePath { get; set; }
+    public char Alphabet {get; set; }
 
+
+}
 
 public class Cutter 
 {
@@ -60,15 +66,15 @@ public class Cutter
         return firstcut;
 
   }
-    public static List<string> SplitImage(string inputImagePath, string outputFolderPath, int rows, int cols)
+    public static Dictionary<string,ImageMapper> SplitImage(string inputImagePath, string outputFolderPath, int rows, int cols)
     {
-        var outputPaths = new List<string>();
+        var outputPaths = new Dictionary<string,ImageMapper>();
 
         using (var image = Image.Load<Rgba32>(inputImagePath))
         {
             int cellWidth = (image.Width / cols  ) ;
             int cellHeight = (image.Height / rows) ;
-
+            int num = 65 ; 
             Directory.CreateDirectory(outputFolderPath);
 
             for (int row = 0; row < rows; row++)
@@ -81,8 +87,10 @@ public class Cutter
                     {
                         string outputPath = Path.Combine(outputFolderPath, $"box_{row}_{col}.png");
                         croppedImage.Save(outputPath, new PngEncoder());
-                        outputPaths.Add(outputPath);
+                        var imageMapper = new ImageMapper(){ Alphabet = (char) num ,  imagePath = outputPath };
+                        outputPaths.Add( row.ToString() + col.ToString() , imageMapper) ;
                     }
+                    num = num + 1;
                 }
             }
         }
