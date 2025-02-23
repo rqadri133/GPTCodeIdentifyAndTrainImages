@@ -15,11 +15,11 @@ using System.Runtime.InteropServices;
 Console.WriteLine("Cutting and Drafting Images trian them ");
 
 
-         string inputImagePath = "//Users//syedqadri//Documents//Dev//GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/engasl.png";
+         string inputImagePath = "//Users//syedqadri//Documents//Dev//GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/aslsample.png";
         string outputFolderPath = "//Users/syedqadri/Documents/Dev/GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/";
         // assuming cols or counted from image but this also needs to be caluclated by logic
-        int rows = 4;
-        int cols = 7;
+        int rows = 5;
+        int cols = 5;
 
         var croppedImagePaths = Cutter.SplitImage(inputImagePath, outputFolderPath, rows, cols);
 
