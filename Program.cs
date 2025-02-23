@@ -12,6 +12,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 
 
+
 Console.WriteLine("Cutting and Drafting Images trian them ");
 
 
@@ -38,7 +39,7 @@ Console.WriteLine("Cutting and Drafting Images trian them ");
        
      
      
-        var data = mlContext.Data.LoadFromEnumerable(imageData);
+       /* var data = mlContext.Data.LoadFromEnumerable(imageData);
         var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
         .Append(mlContext.Transforms.LoadImages(
             outputColumnName: "Image",
@@ -54,9 +55,77 @@ Console.WriteLine("Cutting and Drafting Images trian them ");
             var model = pipeline.Fit(data);
 
         mlContext.Model.Save(model, data.Schema, "image_box_model.tar.zip");
+       DataViewSchema dataPrepPipelineSchema, modelSchema;
+
+  ITransformer dataPrepPipeline = mlContext.Model.Load("image_box_model.tar.zip",out dataPrepPipelineSchema);
+   ITransformer trainedModel = mlContext.Model.Load("image_box_model.tar.zip", out modelSchema);
+trainedModel.Preview(dataView,200); */
+
+var imageDataView = mlContext.Data.LoadFromEnumerable(imageData);
+
+var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
+    .Append(mlContext.Transforms.LoadImages(
+        outputColumnName: "Image",
+        imageFolder: "imagerepository",  // <-- Set correct path
+        inputColumnName: "Image"))
+    .Append(mlContext.Transforms.ResizeImages(
+        outputColumnName: "Image", imageWidth: 224, imageHeight: 224))
+    .Append(mlContext.Transforms.ExtractPixels(outputColumnName: "Image"))
+    .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel", "Label"));
+
+var model = pipeline.Fit(imageDataView);
+
+// Save the model
+mlContext.Model.Save(model, imageDataView.Schema, "image_box_model.tar.zip");
+
+// Load the model for inference
+DataViewSchema modelSchema;
+ITransformer trainedModel = mlContext.Model.Load("image_box_model.tar.zip", out modelSchema);
+
+// Load test data (ensure this is properly set)
+var testData = mlContext.Data.LoadFromEnumerable(imageData); 
+var predictions = trainedModel.Transform(testData);
+
+// Preview the results
+var preview = predictions.Preview(200);
 
         Console.WriteLine("Model trained and saved.");
 
+/// <summary>
+/// Test it
+/// </summary>
+ string modelPath = "image_box_model.tar.zip";
+        string testImagePath = "//Users/syedqadri/Documents/Dev/GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/box_2_0.png"; // Change this to your test image path
+
+        var mlContextTest = new MLContext();
+
+        // Load the trained model
+        ITransformer trainedModelM = mlContext.Model.Load(modelPath, out var modelSchemaM);
+
+        // Define image input schema
+        var data = new ImageData { Image = testImagePath };
+        var imageDataViewM = mlContext.Data.LoadFromEnumerable(new[] { data });
+
+        // Transform image data using the trained model
+        IDataView transformedData = trainedModel.Transform(imageDataViewM);
+
+        // Extract and display the prediction
+      ITransformer trainedModelMi = mlContext.Model.Load(modelPath, out var modelSchemaMi);
+
+        // Print model output schema
+        Console.WriteLine("Model Output Schema:");
+        foreach (var column in modelSchemaMi)
+        {
+            Console.WriteLine($"Column Name: {column.Name}, Type: {column.Type}");
+        }
+
+        var predictionResults = mlContext.Data.CreateEnumerable<PredictionResult>(predictions, reuseRowObject: false);
+
+        foreach (var prediction in predictionResults)
+        {
+            Console.WriteLine($"Predicted Label: {prediction.Label}");
+            Console.WriteLine($"Confidence Scores: {string.Join(", ", prediction.PredictedLabel)}");
+        }
         /*
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
@@ -136,3 +205,24 @@ sudo codesign --force --deep --sign - /usr/local/lib/libtensorflow.2.18.0.dylib
 sudo codesign --force --deep --sign - /usr/local/lib/libtensorflow_framework.2.18.0.dylib
 
         */
+
+        public class TestImage
+    {
+        [LoadColumn(0)]
+        public string ImagePath { get; set; }
+
+     [LoadColumn(1)]
+        public string Label { get; set; }
+        
+    
+    }
+
+   public class PredictionResult
+{
+    [ColumnName("PredictedLabel")]
+    public string PredictedLabel { get; set; }
+
+    // For classification, if the model outputs a label as Key<UInt32>
+    [ColumnName("Label")]
+    public uint Label { get; set; }  // For numerical (or categorical) labels
+}
