@@ -17,49 +17,21 @@ using Microsoft.ML.Transforms.Onnx;
 Console.WriteLine("Cutting and Drafting Images trian them ");
 
 
-         string inputImagePath = "//Users//syedqadri//Documents//Dev//GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/aslsample.png";
+        string inputImagePath = "//Users//syedqadri//Documents//Dev//GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/aslsample.png";
         string outputFolderPath = "//Users/syedqadri/Documents/Dev/GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/";
+        string modelPath =  "//Users/syedqadri/Documents/Dev/GPTCODEIDENTIFYANDTRAINIMAGES/imagerepository/image_box_model.zip";
         // assuming cols or counted from image but this also needs to be caluclated by logic
         int rows = 5;
         int cols = 5;
-        string onnxModelPath = Path.Combine(Directory.GetCurrentDirectory(), "imagerepository/mobilenetv2.onnx");
+        string onnxModelPath = Path.Combine(Directory.GetCurrentDirectory(), "imagerepository/mobilenetv2-7.onnx");
 
         var croppedImagePaths = Cutter.SplitImage(inputImagePath, outputFolderPath, rows, cols);
-
-      var mlContext = new MLContext();
-        var imageData = new List<ImageData>();
-
-        foreach (var dictval in croppedImagePaths)
-        {
-            imageData.Add(new ImageData { Image = dictval.Value.imagePath, Label = dictval.Value.Alphabet.ToString() });
-        }
-
-        var dataView = mlContext.Data.LoadFromEnumerable(imageData);
-
-
-
-        var onnxOptions = new OnnxOptions()
-        {
-            ModelFile = onnxModelPath, // Correct way to specify the ONNX model
-            InputColumns = new[] { "Image" },
-            OutputColumns = new[] { "Features" }
-        };
-
-        // Define ASL pipeline
-       var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label", "Label")
-            .Append(mlContext.Transforms.LoadImages("Image", outputFolderPath, nameof(ImageData.Image)))
-            .Append(mlContext.Transforms.ResizeImages("Image", 224, 224))
-            .Append(mlContext.Transforms.ExtractPixels("Image"))
-            .Append(mlContext.Transforms.ApplyOnnxModel(onnxOptions)) // Fixed ApplyOnnxModel
-            .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
-
-        // Train and save the model
-        var model = pipeline.Fit(dataView);
-        mlContext.Model.Save(model, dataView.Schema, outputFolderPath);
-        Console.WriteLine("ASL Model trained and saved successfully!");
+        ASLRecognition objASL = new ASLRecognition(outputFolderPath, modelPath);
+        objASL.TrainModel();
+        objASL.StartCamera();    
      //   var testData = new ImageData() { Image = outputFolderPath + "//box_2_0.png" };
 
-Cutter.TestModel(mlContext, outputFolderPath ,  outputFolderPath + "//box_2_0.png");
+
              
        
         public class TestImage

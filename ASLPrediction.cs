@@ -16,36 +16,38 @@ using OpenTK.Graphics.OpenGL;
 
 public class ASLRecognition
 {
-    static readonly string dataPath = "./asl_images"; // Folder with images
-    static readonly string modelPath = "asl_model.zip";
+    private string dataPath = "./asl_images"; // Folder with images
+    private  string modelPath = "asl_model.zip";
     static MLContext mlContext = new MLContext();
     private NvVideoCapture capture;
     private Mat frame;
 
-    public ASLRecognition()
+    public ASLRecognition(string dataPath , string ModelPath)
     {
-        TrainModel();
-        StartCamera();
+        this.dataPath = dataPath;
+        this.modelPath = ModelPath;
     }
 
-    private void TrainModel()
+    public void TrainModel()
     {
-        var images = Directory.EnumerateFiles(dataPath, "*.png", SearchOption.AllDirectories)
+            var images = Directory.EnumerateFiles(dataPath, "*.png", SearchOption.AllDirectories)
             .Select(path => new ImageData { Image = path, Label = Path.GetFileNameWithoutExtension(path) })
             .ToList();
 
         var data = mlContext.Data.LoadFromEnumerable(images);
+
         var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
-            .Append(mlContext.Transforms.LoadRawImageBytes("ImagePath", dataPath))
-            .Append(mlContext.MulticlassClassification.Trainers.ImageClassification())
+            .Append(mlContext.Transforms.LoadRawImageBytes("Image", dataPath, "Image")) // Map image bytes correctly
+            .Append(mlContext.MulticlassClassification.Trainers.ImageClassification(featureColumnName: "Image")) // Ensure the feature column is 'Image'
             .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
 
         var model = pipeline.Fit(data);
         mlContext.Model.Save(model, data.Schema, modelPath);
         Console.WriteLine("Model trained and saved.");
+
     }
 
-    private void StartCamera()
+    public void StartCamera()
     {
         using var capture = new OpenCvSharp.VideoCapture(0, OpenCvSharp.VideoCaptureAPIs.AVFOUNDATION); // Use AVFoundation for macOS
         frame = new Mat();

@@ -3360,6 +3360,7 @@
       "SkiaSharp.NativeAssets.Macos >= 2.88.3",
       "SkiaSharp.Views >= 2.88.3",
       "System.Drawing.Common >= 9.0.2",
+      "TensorFlow.NET >= 0.20.1",
       "Tesseract >= 5.0.0"
     ]
   },
@@ -3457,6 +3458,10 @@
           "System.Drawing.Common": {
             "target": "Package",
             "version": "[9.0.2, )"
+          },
+          "TensorFlow.NET": {
+            "target": "Package",
+            "version": "[0.20.1, )"
           },
           "Tesseract": {
             "target": "Package",

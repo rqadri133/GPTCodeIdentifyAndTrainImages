@@ -6,7 +6,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using Tesseract;
 using System.Runtime.InteropServices;
 
-public class OCRProcessor<T> where T : Image
+public class OcrSimulation<T> where T : Image
 {
 
     public string ExtractLetterM2(T image , string imagePath)

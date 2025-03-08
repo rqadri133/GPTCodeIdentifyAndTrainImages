@@ -30,7 +30,7 @@ public class Cutter
  {
         using (var image = Image.Load(currentImage))
         {
-            var ocrProcessor = new OCRProcessor<Image>();
+            var ocrProcessor = new OcrSimulation<Image>();
             string letter = ocrProcessor.ExtractLetterM2(image,currentImage);
 
              return letter;

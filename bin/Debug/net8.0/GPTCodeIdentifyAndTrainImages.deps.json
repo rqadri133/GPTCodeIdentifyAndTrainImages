@@ -21,6 +21,7 @@
           "SkiaSharp.NativeAssets.macOS": "2.88.3",
           "SkiaSharp.Views": "2.88.3",
           "System.Drawing.Common": "9.0.2",
+          "TensorFlow.NET": "0.20.1",
           "Tesseract": "5.2.0"
         },
         "runtime": {
