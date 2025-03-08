@@ -16,6 +16,8 @@ public class WordMapperImage
     [LoadColumn(2)]
   
    public char Alpahbet {get;set;}
+   [LoadColumn(3)]
+   public bool Identified {get;set;}
 
 }
 
