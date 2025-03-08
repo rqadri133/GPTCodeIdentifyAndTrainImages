@@ -97,6 +97,8 @@ public class Cutter
 
         return outputPaths;
     }
+    
+    
  public static void SplitImageIntoMatrix(string inputImagePath, string outputFolderPath, int rows, int cols)
     {
 
@@ -137,4 +139,23 @@ public class Cutter
         }
         return matrix;
     }
+
+ public static IEnumerable<ImageData> LoadASLImages(string folder)
+    {
+        return Directory.GetFiles(folder, "*.*", SearchOption.AllDirectories)
+            .Where(file => file.EndsWith(".jpg") || file.EndsWith(".png"))
+            .Select(file => new ImageData { Image = file, Label = Path.GetFileNameWithoutExtension(file) });
+    }
+
+    public static void TestModel(MLContext mlContext, string modelPath, string testImagePath)
+    {
+        ITransformer loadedModel = mlContext.Model.Load(modelPath, out var schema);
+        var predictor = mlContext.Model.CreatePredictionEngine<ImageData, PredictionResult>(loadedModel);
+
+        var testData = new ImageData { Image = testImagePath };
+        var prediction = predictor.Predict(testData);
+
+        Console.WriteLine($"Predicted Word for {testImagePath}: {prediction.PredictedLabel}");
+    }
+
 }
